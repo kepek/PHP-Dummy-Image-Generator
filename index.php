@@ -18,10 +18,10 @@
  */
 
 // Handle the parameters.
-$strSize  = (($strSize = $_GET['size'])   ? strtolower($strSize)  : NULL);
-$strType  = (($strType = $_GET['type'])   ? strtolower($strType)  : 'png');
-$strBg    = (($strBg = $_GET['bg'])       ? strtolower($strBg)    : '000000');
-$strColor = (($strColor = $_GET['color']) ? strtolower($strColor) : 'ffffff');
+$strSize  = (isset($_GET['size'])	? strtolower($_GET['size'])  : NULL);
+$strType  = (isset($_GET['type'])	? strtolower($_GET['type'])  : 'png');
+$strBg    = (isset($_GET['bg'])		? strtolower($_GET['bg'])    : '000000');
+$strColor = (isset($_GET['color'])	? strtolower($_GET['color']) : 'ffffff');
 
 // Now let's check the parameters.
 if ($strSize == NULL) {
@@ -38,7 +38,7 @@ if (strlen($strColor) != 6 and strlen($strColor) != 3) {
 }
 
 // Get width and height from current size.
-list($strWidth, $strHeight) = split('x', $strSize);
+list($strWidth, $strHeight) = preg_split('/x/', $strSize, -1, PREG_SPLIT_NO_EMPTY);
 // If no height is given, we'll return a squared picture.
 if ($strHeight == NULL) $strHeight = $strWidth;
 
